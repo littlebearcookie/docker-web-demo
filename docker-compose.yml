@@ -1,0 +1,25 @@
+version: "3"
+services:
+  php:
+    build: ./php
+    ports:
+      - "8888:80"
+    depends_on:
+      - mysql
+    volumes:
+      - ./www:/var/www/html
+  mysql:
+    build: ./mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
